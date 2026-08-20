@@ -18,7 +18,10 @@ Source is open for review and integration testing. Registry packages and public 
 - [`sdks/php`](sdks/php): PHP client
 - [`sdks/ruby`](sdks/ruby): Ruby client
 - [`spec/openapi.json`](spec/openapi.json): reviewed machine contract
+- [`skills/test-email-flows`](skills/test-email-flows): installable Skill candidate for authorized staging email-flow tests
 
 Read [local usage](LOCAL-USAGE.md), [security](SECURITY.md), and the README in the selected language directory before integrating. Keep API keys out of source, URLs, logs, screenshots, browser storage, and CI artifacts; delete temporary inboxes in `finally`.
 
 Canonical documentation: [once-email.com/api](https://once-email.com/api)
+
+For a routine change, run `scripts/release-all.sh candidate`. Maintainers can run `scripts/release-all.sh publish sdk-vX.Y.Z` to create and push a validated release tag; GitHub waits for the same commit's native matrix before publishing immutable release assets.

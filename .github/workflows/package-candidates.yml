@@ -6,10 +6,31 @@ on:
     tags: ['sdk-v*']
 
 permissions:
-  contents: read
+  contents: write
+  id-token: write
 
 jobs:
+  wait-native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the same commit native matrix
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in $(seq 1 180); do
+            result="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow sdk-ci.yml --commit "$GITHUB_SHA" --limit 1 --json status,conclusion --jq '.[0] | (.status + ":" + (.conclusion // ""))')"
+            case "$result" in
+              completed:success) exit 0 ;;
+              completed:*) echo "Native SDK matrix failed: $result" >&2; exit 1 ;;
+            esac
+            sleep 10
+          done
+          echo "Timed out waiting for the native SDK matrix" >&2
+          exit 1
+
   package:
+    needs: wait-native
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,3 +53,40 @@ jobs:
           path: dist/registry-candidates
           if-no-files-found: error
           retention-days: 14
+
+  github-release:
+    if: startsWith(github.ref, 'refs/tags/sdk-v')
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: registry-candidates
+          path: release-assets
+      - name: Publish immutable GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" release-assets/* --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes --title "Once Email SDKs $GITHUB_REF_NAME"
+
+  npm-publish:
+    if: startsWith(github.ref, 'refs/tags/sdk-v') && vars.ENABLE_NPM_PUBLISH == 'true'
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: registry-candidates, path: release-assets }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', registry-url: 'https://registry.npmjs.org' }
+      - run: npm publish release-assets/once-email-test-*.tgz --access public --provenance
+
+  pypi-publish:
+    if: startsWith(github.ref, 'refs/tags/sdk-v') && vars.ENABLE_PYPI_PUBLISH == 'true'
+    needs: package
+    runs-on: ubuntu-latest
+    environment: pypi
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: registry-candidates, path: release-assets }
+      - run: mkdir python-dist && cp release-assets/*.whl python-dist/ && cp release-assets/once_email_sdk-*.tar.gz python-dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with: { packages-dir: python-dist }

@@ -13,3 +13,11 @@ Registry publication remains disabled until the package owner completes each reg
 - Go: no upload job is required. A semver tag for the `sdks/go` module makes it discoverable through Go module proxies.
 
 Never add registry tokens, signing keys, API keys, inbox addresses, message content, or OTP values to source, logs, artifacts, or release notes.
+
+## Automatic release policy
+
+- Every push runs the native Windows, Linux and macOS matrix plus the Once Email branding gate.
+- `scripts/release-all.sh candidate` performs a local candidate build without publishing.
+- A signed-off `sdk-v*` tag starts packaging, waits for the same commit's native matrix, uploads checksummed SDK and Skill artifacts, and creates a GitHub Release.
+- npm and PyPI jobs are present but remain fail-closed behind repository variables `ENABLE_NPM_PUBLISH` and `ENABLE_PYPI_PUBLISH`. Enable them only after trusted publisher ownership is configured.
+- Maven Central, NuGet, RubyGems and Packagist stay disabled until their namespace, signing and ownership prerequisites are bound. Go is released by its semver module tag.

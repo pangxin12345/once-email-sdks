@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Email Flows"
+  short_description: "Build safe authorized staging email-flow tests"
+  default_prompt: "Use $test-email-flows to add a safe Once Email OTP test to my authorized staging project."
