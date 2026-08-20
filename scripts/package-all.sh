@@ -6,7 +6,7 @@ dist="$root/dist/registry-candidates"
 rm -rf "$dist"
 mkdir -p "$dist"
 
-(cd "$root/sdks/typescript" && npm ci --ignore-scripts && npm run test:unit && npm pack --ignore-scripts --pack-destination "$dist")
+(cd "$root/sdks/typescript" && npm ci --ignore-scripts && npm run build && npm pack --ignore-scripts --pack-destination "$dist")
 python3 -m pip install --disable-pip-version-check build >/dev/null
 python3 -m build --outdir "$dist" "$root/sdks/python"
 mvn --batch-mode --no-transfer-progress -f "$root/sdks/java/pom.xml" package
