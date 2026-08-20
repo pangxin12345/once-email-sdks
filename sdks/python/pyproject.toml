@@ -1,0 +1,16 @@
+[project]
+name = "once-email"
+version = "0.1.0.dev1"
+description = "Private candidate Python client for the Once Email Developer API"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = []
+
+[project.urls]
+Documentation = "https://once-email.com/docs/sdk-cli"
+Security = "https://once-email.com/contact"
+
+[tool.once-email]
+private-candidate = true
+openapi-source = "../mail-web/src/main/resources/developer-api/openapi.json"

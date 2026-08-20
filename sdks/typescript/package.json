@@ -1,0 +1,51 @@
+{
+  "name": "@once-email/test",
+  "version": "0.1.0-private.1",
+  "private": true,
+  "description": "Private candidate core for authorized Once Email staging flow tests",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist/src",
+    "schemas",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "once-email-test": "./dist/src/cli.js"
+  },
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./playwright": "./dist/src/playwright.js"
+  },
+  "scripts": {
+    "generate": "node scripts/sync-contracts.mjs && openapi-typescript ../mail-web/src/main/resources/developer-api/openapi.json -o src/generated/api.ts",
+    "build": "npm run generate && tsc -p tsconfig.json",
+    "test:unit": "npm run build && node --test dist/test/*.test.js",
+    "test": "npm run test:unit && env -u FORCE_COLOR -u NO_COLOR playwright test test/*.spec.ts --workers=1 --output=/tmp/once-email-playwright-fixture-results",
+    "fixture:adapter": "node dist/src/fixture/otp-staging-adapter.js",
+    "pack:candidate": "npm_config_cache=.npm-cache npm pack --ignore-scripts"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "yaml": "2.9.0"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.55.0 <2"
+  },
+  "peerDependenciesMeta": {
+    "@playwright/test": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "22.15.3",
+    "openapi-typescript": "7.9.1",
+    "typescript": "5.8.3"
+  }
+}

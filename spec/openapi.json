@@ -1,0 +1,127 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Once Email Developer API",
+    "version": "0.5.0-private-beta",
+    "description": "Receive-only temporary inbox API for authorized email-flow testing. Public access is not open."
+  },
+  "servers": [{ "url": "https://api.once-email.com" }],
+  "security": [{ "bearerApiKey": [] }],
+  "paths": {
+    "/v1/inboxes": {
+      "post": {
+        "operationId": "createInbox",
+        "summary": "Create one temporary test inbox",
+        "parameters": [{ "$ref": "#/components/parameters/IdempotencyKey" }],
+        "responses": {
+          "201": { "description": "Inbox created", "headers": { "Cache-Control": { "schema": { "type": "string", "const": "no-store" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Inbox" } } } },
+          "401": { "$ref": "#/components/responses/AuthenticationRequired" },
+          "403": { "$ref": "#/components/responses/AccessDenied" },
+          "409": { "$ref": "#/components/responses/IdempotencyInProgress" },
+          "429": { "$ref": "#/components/responses/RateLimited" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    },
+    "/v1/inboxes/{inboxId}/messages": {
+      "get": {
+        "operationId": "listMessages",
+        "summary": "List received message summaries",
+        "parameters": [
+          { "$ref": "#/components/parameters/InboxId" },
+          { "$ref": "#/components/parameters/Since" },
+          { "$ref": "#/components/parameters/Cursor" },
+          { "$ref": "#/components/parameters/PageSize" }
+        ],
+        "responses": {
+          "200": { "description": "Message summaries ordered by received time and UID", "headers": { "Cache-Control": { "schema": { "type": "string", "const": "no-store" } }, "X-Next-Cursor": { "description": "Opaque continuation cursor; absent when the page is complete", "schema": { "type": "string", "maxLength": 96 } } }, "content": { "application/json": { "schema": { "type": "array", "maxItems": 100, "items": { "$ref": "#/components/schemas/MessageSummary" } } } } },
+          "400": { "$ref": "#/components/responses/InvalidRequest" },
+          "401": { "$ref": "#/components/responses/AuthenticationRequired" },
+          "403": { "$ref": "#/components/responses/AccessDenied" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "429": { "$ref": "#/components/responses/RateLimited" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    },
+    "/v1/inboxes/{inboxId}/messages/{uid}": {
+      "get": {
+        "operationId": "getMessage",
+        "summary": "Read one received message",
+        "parameters": [{ "$ref": "#/components/parameters/InboxId" }, { "$ref": "#/components/parameters/MessageUid" }],
+        "responses": {
+          "200": { "description": "Message", "headers": { "Cache-Control": { "schema": { "type": "string", "const": "no-store" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } } },
+          "400": { "$ref": "#/components/responses/InvalidRequest" },
+          "401": { "$ref": "#/components/responses/AuthenticationRequired" },
+          "403": { "$ref": "#/components/responses/AccessDenied" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "413": { "$ref": "#/components/responses/ResponseTooLarge" },
+          "429": { "$ref": "#/components/responses/RateLimited" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    },
+    "/v1/inboxes/{inboxId}/messages/{uid}/attachments/{cid}": {
+      "get": {
+        "operationId": "downloadAttachment",
+        "summary": "Download one attachment from an owned received message",
+        "parameters": [{ "$ref": "#/components/parameters/InboxId" }, { "$ref": "#/components/parameters/MessageUid" }, { "$ref": "#/components/parameters/AttachmentCid" }],
+        "responses": {
+          "200": { "description": "Attachment bytes, at most 10485760 bytes", "headers": { "Cache-Control": { "schema": { "type": "string", "const": "no-store" } } }, "content": { "application/octet-stream": { "schema": { "type": "string", "contentEncoding": "binary", "maxLength": 10485760 } } } },
+          "400": { "$ref": "#/components/responses/InvalidRequest" },
+          "401": { "$ref": "#/components/responses/AuthenticationRequired" },
+          "403": { "$ref": "#/components/responses/AccessDenied" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "413": { "$ref": "#/components/responses/ResponseTooLarge" },
+          "429": { "$ref": "#/components/responses/RateLimited" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    },
+    "/v1/inboxes/{inboxId}": {
+      "delete": {
+        "operationId": "deleteInbox",
+        "summary": "Delete an owned inbox and its messages",
+        "parameters": [{ "$ref": "#/components/parameters/InboxId" }],
+        "responses": {
+          "204": { "description": "Inbox deleted; repeating the delete for the same owned inbox is safe", "headers": { "Cache-Control": { "schema": { "type": "string", "const": "no-store" } } } },
+          "400": { "$ref": "#/components/responses/InvalidRequest" },
+          "401": { "$ref": "#/components/responses/AuthenticationRequired" },
+          "403": { "$ref": "#/components/responses/AccessDenied" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "429": { "$ref": "#/components/responses/RateLimited" },
+          "503": { "$ref": "#/components/responses/ServiceUnavailable" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "bearerApiKey": { "type": "http", "scheme": "bearer", "bearerFormat": "oe_live_...", "description": "Keys may grant inboxes:create, messages:read, and/or inboxes:delete. A missing required scope returns 403." } },
+    "parameters": {
+      "InboxId": { "name": "inboxId", "in": "path", "required": true, "schema": { "type": "string", "format": "uuid" } },
+      "MessageUid": { "name": "uid", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64", "minimum": 1 } },
+      "AttachmentCid": { "name": "cid", "in": "path", "required": true, "schema": { "type": "string", "minLength": 1 } },
+      "IdempotencyKey": { "name": "Idempotency-Key", "in": "header", "required": false, "description": "Stable key for safely retrying inbox creation; valid while the created inbox remains available", "schema": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,128}$" } },
+      "Since": { "name": "since", "in": "query", "required": false, "description": "Return messages received strictly after this instant", "schema": { "type": "string", "format": "date-time", "maxLength": 40 } },
+      "Cursor": { "name": "cursor", "in": "query", "required": false, "description": "Opaque continuation cursor returned in X-Next-Cursor", "schema": { "type": "string", "maxLength": 96 } },
+      "PageSize": { "name": "pageSize", "in": "query", "required": false, "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 } }
+    },
+    "schemas": {
+      "Inbox": { "type": "object", "additionalProperties": false, "required": ["id", "address", "expiresAt", "serverTime"], "properties": { "id": { "type": "string", "format": "uuid" }, "address": { "type": "string", "format": "email" }, "expiresAt": { "type": "string", "format": "date-time" }, "serverTime": { "type": "string", "format": "date-time" } } },
+      "MessageSummary": { "type": "object", "additionalProperties": false, "required": ["uid", "subject", "from", "receivedAt", "attachmentsCount"], "properties": { "uid": { "type": "integer", "format": "int64" }, "subject": { "type": "string" }, "from": { "type": "string" }, "receivedAt": { "type": ["string", "null"], "format": "date-time" }, "attachmentsCount": { "type": "integer", "minimum": 0 } } },
+      "Attachment": { "type": "object", "additionalProperties": false, "required": ["id", "fileName", "size", "mimeType", "cid"], "properties": { "id": { "type": "integer" }, "fileName": { "type": "string" }, "size": { "type": "integer", "format": "int64", "minimum": 0 }, "mimeType": { "type": "string" }, "cid": { "type": "string" } } },
+      "Message": { "type": "object", "additionalProperties": false, "required": ["uid", "subject", "from", "receivedAt", "attachmentsCount", "bodyPreview", "bodyHtml", "attachments"], "properties": { "uid": { "type": "integer", "format": "int64" }, "subject": { "type": "string" }, "from": { "type": "string" }, "receivedAt": { "type": ["string", "null"], "format": "date-time" }, "attachmentsCount": { "type": "integer", "minimum": 0 }, "bodyPreview": { "type": "string", "maxLength": 262144, "description": "At most 262144 UTF-8 bytes" }, "bodyHtml": { "type": "string", "maxLength": 2097152, "description": "At most 2097152 UTF-8 bytes" }, "attachments": { "type": "array", "maxItems": 100, "items": { "$ref": "#/components/schemas/Attachment" } } } },
+      "ApiError": { "type": "object", "additionalProperties": false, "required": ["code", "message", "retryable"], "properties": { "code": { "type": "string", "enum": ["invalid_request", "authentication_required", "access_denied", "not_found", "idempotency_in_progress", "response_too_large", "rate_limited", "service_unavailable", "internal_error"] }, "message": { "type": "string" }, "retryable": { "type": "boolean" } } }
+    },
+    "responses": {
+      "InvalidRequest": { "description": "Invalid request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "AuthenticationRequired": { "description": "Missing or invalid API key", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "AccessDenied": { "description": "Inactive subscription, frozen account, or resource ownership failure", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "NotFound": { "description": "Resource missing or expired", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "IdempotencyInProgress": { "description": "A matching creation request is still in progress", "headers": { "Retry-After": { "schema": { "type": "integer", "const": 1 } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "ResponseTooLarge": { "description": "Requested message or attachment exceeds the explicit response limit", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "RateLimited": { "description": "Rate or monthly allowance exceeded", "headers": { "Retry-After": { "schema": { "type": "integer", "minimum": 1 } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } },
+      "ServiceUnavailable": { "description": "Required dependency unavailable", "headers": { "Retry-After": { "schema": { "type": "integer", "minimum": 1 } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ApiError" } } } }
+    }
+  }
+}

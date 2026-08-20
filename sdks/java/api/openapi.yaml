@@ -1,0 +1,537 @@
+openapi: 3.1.0
+info:
+  description: Receive-only temporary inbox API for authorized email-flow testing.
+    Public access is not open.
+  title: Once Email Developer API
+  version: 0.5.0-private-beta
+servers:
+- url: https://api.once-email.com
+security:
+- bearerApiKey: []
+paths:
+  /v1/inboxes:
+    post:
+      operationId: createInbox
+      parameters:
+      - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inbox'
+          description: Inbox created
+          headers:
+            Cache-Control:
+              explode: false
+              schema:
+                enum:
+                - no-store
+                type: string
+              style: simple
+        "401":
+          $ref: '#/components/responses/AuthenticationRequired'
+        "403":
+          $ref: '#/components/responses/AccessDenied'
+        "409":
+          $ref: '#/components/responses/IdempotencyInProgress'
+        "429":
+          $ref: '#/components/responses/RateLimited'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailable'
+      summary: Create one temporary test inbox
+      x-accepts:
+      - application/json
+  /v1/inboxes/{inboxId}/messages:
+    get:
+      operationId: listMessages
+      parameters:
+      - $ref: '#/components/parameters/InboxId'
+      - $ref: '#/components/parameters/Since'
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageSummary'
+                maxItems: 100
+                type: array
+          description: Message summaries ordered by received time and UID
+          headers:
+            Cache-Control:
+              explode: false
+              schema:
+                enum:
+                - no-store
+                type: string
+              style: simple
+            X-Next-Cursor:
+              description: Opaque continuation cursor; absent when the page is complete
+              explode: false
+              schema:
+                maxLength: 96
+                type: string
+              style: simple
+        "400":
+          $ref: '#/components/responses/InvalidRequest'
+        "401":
+          $ref: '#/components/responses/AuthenticationRequired'
+        "403":
+          $ref: '#/components/responses/AccessDenied'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "429":
+          $ref: '#/components/responses/RateLimited'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailable'
+      summary: List received message summaries
+      x-accepts:
+      - application/json
+  /v1/inboxes/{inboxId}/messages/{uid}:
+    get:
+      operationId: getMessage
+      parameters:
+      - $ref: '#/components/parameters/InboxId'
+      - $ref: '#/components/parameters/MessageUid'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+          description: Message
+          headers:
+            Cache-Control:
+              explode: false
+              schema:
+                enum:
+                - no-store
+                type: string
+              style: simple
+        "400":
+          $ref: '#/components/responses/InvalidRequest'
+        "401":
+          $ref: '#/components/responses/AuthenticationRequired'
+        "403":
+          $ref: '#/components/responses/AccessDenied'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "413":
+          $ref: '#/components/responses/ResponseTooLarge'
+        "429":
+          $ref: '#/components/responses/RateLimited'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailable'
+      summary: Read one received message
+      x-accepts:
+      - application/json
+  /v1/inboxes/{inboxId}/messages/{uid}/attachments/{cid}:
+    get:
+      operationId: downloadAttachment
+      parameters:
+      - $ref: '#/components/parameters/InboxId'
+      - $ref: '#/components/parameters/MessageUid'
+      - $ref: '#/components/parameters/AttachmentCid'
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                maxLength: 10485760
+                type: string
+          description: "Attachment bytes, at most 10485760 bytes"
+          headers:
+            Cache-Control:
+              explode: false
+              schema:
+                enum:
+                - no-store
+                type: string
+              style: simple
+        "400":
+          $ref: '#/components/responses/InvalidRequest'
+        "401":
+          $ref: '#/components/responses/AuthenticationRequired'
+        "403":
+          $ref: '#/components/responses/AccessDenied'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "413":
+          $ref: '#/components/responses/ResponseTooLarge'
+        "429":
+          $ref: '#/components/responses/RateLimited'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailable'
+      summary: Download one attachment from an owned received message
+      x-accepts:
+      - application/json
+      - application/octet-stream
+  /v1/inboxes/{inboxId}:
+    delete:
+      operationId: deleteInbox
+      parameters:
+      - $ref: '#/components/parameters/InboxId'
+      responses:
+        "204":
+          description: Inbox deleted; repeating the delete for the same owned inbox
+            is safe
+          headers:
+            Cache-Control:
+              explode: false
+              schema:
+                enum:
+                - no-store
+                type: string
+              style: simple
+        "400":
+          $ref: '#/components/responses/InvalidRequest'
+        "401":
+          $ref: '#/components/responses/AuthenticationRequired'
+        "403":
+          $ref: '#/components/responses/AccessDenied'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "429":
+          $ref: '#/components/responses/RateLimited'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailable'
+      summary: Delete an owned inbox and its messages
+      x-accepts:
+      - application/json
+components:
+  parameters:
+    InboxId:
+      explode: false
+      in: path
+      name: inboxId
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    MessageUid:
+      explode: false
+      in: path
+      name: uid
+      required: true
+      schema:
+        format: int64
+        minimum: 1
+        type: integer
+      style: simple
+    AttachmentCid:
+      explode: false
+      in: path
+      name: cid
+      required: true
+      schema:
+        minLength: 1
+        type: string
+      style: simple
+    IdempotencyKey:
+      description: Stable key for safely retrying inbox creation; valid while the
+        created inbox remains available
+      explode: false
+      in: header
+      name: Idempotency-Key
+      required: false
+      schema:
+        pattern: "^[A-Za-z0-9._:-]{8,128}$"
+        type: string
+      style: simple
+    Since:
+      description: Return messages received strictly after this instant
+      explode: true
+      in: query
+      name: since
+      required: false
+      schema:
+        format: date-time
+        maxLength: 40
+        type: string
+      style: form
+    Cursor:
+      description: Opaque continuation cursor returned in X-Next-Cursor
+      explode: true
+      in: query
+      name: cursor
+      required: false
+      schema:
+        maxLength: 96
+        type: string
+      style: form
+    PageSize:
+      explode: true
+      in: query
+      name: pageSize
+      required: false
+      schema:
+        default: 50
+        maximum: 100
+        minimum: 1
+        type: integer
+      style: form
+  responses:
+    InvalidRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Invalid request
+    AuthenticationRequired:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Missing or invalid API key
+    AccessDenied:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: "Inactive subscription, frozen account, or resource ownership failure"
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Resource missing or expired
+    IdempotencyInProgress:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: A matching creation request is still in progress
+      headers:
+        Retry-After:
+          explode: false
+          schema:
+            enum:
+            - 1
+            type: integer
+          style: simple
+    ResponseTooLarge:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Requested message or attachment exceeds the explicit response limit
+    RateLimited:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Rate or monthly allowance exceeded
+      headers:
+        Retry-After:
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+          style: simple
+    ServiceUnavailable:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+      description: Required dependency unavailable
+      headers:
+        Retry-After:
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+          style: simple
+  schemas:
+    Inbox:
+      additionalProperties: false
+      example:
+        address: address
+        serverTime: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          format: uuid
+          type: string
+        address:
+          format: email
+          type: string
+        expiresAt:
+          format: date-time
+          type: string
+        serverTime:
+          format: date-time
+          type: string
+      required:
+      - address
+      - expiresAt
+      - id
+      - serverTime
+    MessageSummary:
+      additionalProperties: false
+      example:
+        uid: 0
+        attachmentsCount: 0
+        subject: subject
+        from: from
+        receivedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uid:
+          format: int64
+          type: integer
+        subject:
+          type: string
+        from:
+          type: string
+        receivedAt:
+          format: date-time
+          nullable: true
+          type: string
+        attachmentsCount:
+          minimum: 0
+          type: integer
+      required:
+      - attachmentsCount
+      - from
+      - receivedAt
+      - subject
+      - uid
+    Attachment:
+      additionalProperties: false
+      example:
+        fileName: fileName
+        size: 0
+        id: 1
+        mimeType: mimeType
+        cid: cid
+      properties:
+        id:
+          type: integer
+        fileName:
+          type: string
+        size:
+          format: int64
+          minimum: 0
+          type: integer
+        mimeType:
+          type: string
+        cid:
+          type: string
+      required:
+      - cid
+      - fileName
+      - id
+      - mimeType
+      - size
+    Message:
+      additionalProperties: false
+      example:
+        uid: 0
+        attachmentsCount: 0
+        attachments:
+        - fileName: fileName
+          size: 0
+          id: 1
+          mimeType: mimeType
+          cid: cid
+        - fileName: fileName
+          size: 0
+          id: 1
+          mimeType: mimeType
+          cid: cid
+        - fileName: fileName
+          size: 0
+          id: 1
+          mimeType: mimeType
+          cid: cid
+        - fileName: fileName
+          size: 0
+          id: 1
+          mimeType: mimeType
+          cid: cid
+        - fileName: fileName
+          size: 0
+          id: 1
+          mimeType: mimeType
+          cid: cid
+        subject: subject
+        bodyPreview: bodyPreview
+        from: from
+        bodyHtml: bodyHtml
+        receivedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uid:
+          format: int64
+          type: integer
+        subject:
+          type: string
+        from:
+          type: string
+        receivedAt:
+          format: date-time
+          nullable: true
+          type: string
+        attachmentsCount:
+          minimum: 0
+          type: integer
+        bodyPreview:
+          description: At most 262144 UTF-8 bytes
+          maxLength: 262144
+          type: string
+        bodyHtml:
+          description: At most 2097152 UTF-8 bytes
+          maxLength: 2097152
+          type: string
+        attachments:
+          items:
+            $ref: '#/components/schemas/Attachment'
+          maxItems: 100
+          type: array
+      required:
+      - attachments
+      - attachmentsCount
+      - bodyHtml
+      - bodyPreview
+      - from
+      - receivedAt
+      - subject
+      - uid
+    ApiError:
+      additionalProperties: false
+      example:
+        retryable: true
+        code: invalid_request
+        message: message
+      properties:
+        code:
+          enum:
+          - invalid_request
+          - authentication_required
+          - access_denied
+          - not_found
+          - idempotency_in_progress
+          - response_too_large
+          - rate_limited
+          - service_unavailable
+          - internal_error
+          type: string
+        message:
+          type: string
+        retryable:
+          type: boolean
+      required:
+      - code
+      - message
+      - retryable
+  securitySchemes:
+    bearerApiKey:
+      bearerFormat: oe_live_...
+      description: "Keys may grant inboxes:create, messages:read, and/or inboxes:delete.\
+        \ A missing required scope returns 403."
+      scheme: bearer
+      type: http
+
