@@ -5,8 +5,9 @@ root="$(cd "$(dirname "$0")/.." && pwd)"
 sdk_root="$root/sdks"
 banned='OpenAPI Generator|openapi-generator\.tech|github\.com/(openapitools|OpenAPITools)/openapi-generator|GIT_USER_ID|GIT_REPO_ID|Unlicense'
 
-if rg -n "$banned" "$sdk_root" \
-  --glob '!**/node_modules/**' --glob '!**/target/**' --glob '!**/bin/**' --glob '!**/obj/**'; then
+if grep -RInE \
+  --exclude-dir=node_modules --exclude-dir=target --exclude-dir=bin --exclude-dir=obj \
+  "$banned" "$sdk_root"; then
   printf 'SDK branding gate failed: generator branding, template placeholders, or obsolete licensing remain.\n' >&2
   exit 1
 fi
@@ -22,7 +23,7 @@ required=(
 )
 
 for file in "${required[@]}"; do
-  if ! rg -q 'https://once-email\.com' "$file"; then
+  if ! grep -qE 'https://once-email\.com' "$file"; then
     printf 'SDK branding gate failed: official website missing from %s\n' "$file" >&2
     exit 1
   fi
