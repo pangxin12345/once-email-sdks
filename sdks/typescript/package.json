@@ -25,7 +25,7 @@
   "scripts": {
     "generate": "node scripts/sync-contracts.mjs && openapi-typescript ../../spec/openapi.json -o src/generated/api.ts",
     "build": "npm run generate && tsc -p tsconfig.json",
-    "test:unit": "npm run build && node --test dist/test/*.test.js",
+    "test:unit": "npm run build && node scripts/run-unit-tests.mjs",
     "test": "npm run test:unit && env -u FORCE_COLOR -u NO_COLOR playwright test test/*.spec.ts --workers=1 --output=/tmp/once-email-playwright-fixture-results",
     "fixture:adapter": "node dist/src/fixture/otp-staging-adapter.js",
     "pack:candidate": "npm_config_cache=.npm-cache npm pack --ignore-scripts"
