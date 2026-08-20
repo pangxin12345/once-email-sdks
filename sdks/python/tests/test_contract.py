@@ -12,7 +12,7 @@ class ContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "generated_contract.py"
             subprocess.run([sys.executable, str(ROOT / "scripts/generate_contract.py"),
-                            "--source", str(REPOSITORY / "mail-web/src/main/resources/developer-api/openapi.json"),
+                            "--source", str(REPOSITORY.parent / "spec/openapi.json"),
                             "--output", str(output)], check=True)
             self.assertEqual(output.read_bytes(), (ROOT / "src/once_email/generated_contract.py").read_bytes())
 

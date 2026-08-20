@@ -1,6 +1,5 @@
-module github.com/GIT_USER_ID/GIT_REPO_ID
+module github.com/pangxin12345/once-email-sdks/sdks/go
 
 go 1.18
 
-require (
-)
+require github.com/stretchr/testify v1.10.0
