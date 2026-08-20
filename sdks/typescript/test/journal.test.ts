@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { chmod, lstat, mkdir, readFile, readdir, stat, symlink, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { platform, tmpdir } from "node:os";
 import { join } from "node:path";
 import { mkdtemp } from "node:fs/promises";
 import test from "node:test";
@@ -20,9 +20,12 @@ test("permission validation is strict on Unix and uses exclusive-file guarantees
 test("journal persists only the minimum recovery fields in restricted storage", async () => {
   const root = await mkdtemp(join(tmpdir(), "once-email-journal-"));
   const path = await createCleanupJournal(runId, "ONCE_EMAIL_API_KEY", root);
-  assert.equal((await stat(join(root, ".once-email"))).mode & 0o777, 0o700);
-  assert.equal((await stat(join(root, ".once-email", "run"))).mode & 0o777, 0o700);
-  assert.equal((await stat(path)).mode & 0o777, 0o600);
+  if (platform() !== "win32") {
+    assert.equal((await stat(join(root, ".once-email"))).mode & 0o777, 0o700);
+    assert.equal((await stat(join(root, ".once-email", "run"))).mode & 0o777, 0o700);
+    assert.equal((await stat(path)).mode & 0o777, 0o600);
+  }
+  await assert.rejects(createCleanupJournal(runId, "ONCE_EMAIL_API_KEY", root));
   const raw = await readFile(path, "utf8");
   assert.deepEqual(Object.keys(JSON.parse(raw)).sort(), ["apiKeyEnv", "createdAt", "runId", "schemaVersion"].sort());
   for (const forbidden of [inboxId, "@", "oe_live_"]) assert.equal(raw.includes(forbidden), false);
@@ -34,9 +37,11 @@ test("journal persists only the minimum recovery fields in restricted storage", 
 test("journal rejects broad permissions, extra fields and symlinks", async () => {
   const root = await mkdtemp(join(tmpdir(), "once-email-journal-invalid-"));
   const path = await createCleanupJournal(runId, "ONCE_EMAIL_API_KEY", root);
-  await chmod(path, 0o644);
-  await assert.rejects(loadCleanupJournal(path));
-  await chmod(path, 0o600);
+  if (platform() !== "win32") {
+    await chmod(path, 0o644);
+    await assert.rejects(loadCleanupJournal(path));
+    await chmod(path, 0o600);
+  }
   const value = JSON.parse(await readFile(path, "utf8"));
   await writeFile(path, JSON.stringify({ ...value, inboxId }), { mode: 0o600 });
   await assert.rejects(loadCleanupJournal(path));
@@ -48,7 +53,9 @@ test("journal rejects broad permissions, extra fields and symlinks", async () =>
 test("journal creation rejects an existing broad or linked directory", async () => {
   const broad = await mkdtemp(join(tmpdir(), "once-email-journal-broad-"));
   await mkdir(join(broad, ".once-email"), { mode: 0o755 });
-  await assert.rejects(createCleanupJournal(runId, "ONCE_EMAIL_API_KEY", broad));
+  if (platform() !== "win32") {
+    await assert.rejects(createCleanupJournal(runId, "ONCE_EMAIL_API_KEY", broad));
+  }
   const linked = await mkdtemp(join(tmpdir(), "once-email-journal-link-"));
   const target = await mkdtemp(join(tmpdir(), "once-email-journal-target-"));
   await symlink(target, join(linked, ".once-email"));

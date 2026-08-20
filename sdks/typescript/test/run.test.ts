@@ -96,7 +96,7 @@ test("reports are new 0600 files and contain only redacted schema fields", async
   const directory = await mkdtemp(join(tmpdir(), "once-email-report-test-"));
   const path = join(directory, "report.json");
   await writeReports(path, outcome.report, config());
-  assert.equal((await stat(path)).mode & 0o777, 0o600);
+  if (process.platform !== "win32") assert.equal((await stat(path)).mode & 0o777, 0o600);
   const json = await readFile(path, "utf8");
   const xml = await readFile(join(directory, "report.xml"), "utf8");
   for (const forbidden of [address, otp, inboxId, "hidden@example.test", "hidden"]) {
