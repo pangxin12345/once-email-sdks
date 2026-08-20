@@ -22,8 +22,10 @@ def python_type(schema: dict) -> str:
     raise ValueError("unsupported OpenAPI type")
 
 def render(source: Path) -> str:
-    raw = source.read_bytes()
-    contract = json.loads(raw)
+    contract = json.loads(source.read_text(encoding="utf-8"))
+    canonical = json.dumps(
+        contract, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
     operations = {}
     for path, methods in contract["paths"].items():
         for method, operation in methods.items():
@@ -37,7 +39,7 @@ def render(source: Path) -> str:
     if set(operations) != expected: raise ValueError("operation set changed")
     lines = ["# Generated from the repository OpenAPI. Do not edit.", "from typing import TypedDict", "",
              f"OPENAPI_VERSION = {contract['info']['version']!r}",
-             f"CONTRACT_SHA256 = {hashlib.sha256(raw).hexdigest()!r}",
+             f"CONTRACT_SHA256 = {hashlib.sha256(canonical).hexdigest()!r}",
              f"OPERATIONS = {operations!r}", ""]
     schemas = contract["components"]["schemas"]
     error_codes = schemas["ApiError"]["properties"]["code"].get("enum")

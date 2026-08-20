@@ -61,6 +61,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24.x'
+          cache-dependency-path: sdks/go/go.sum
       - run: go mod tidy
         working-directory: sdks/go
       - run: go test ./...

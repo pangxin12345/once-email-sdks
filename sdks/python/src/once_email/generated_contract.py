@@ -2,7 +2,7 @@
 from typing import TypedDict
 
 OPENAPI_VERSION = '0.5.0-private-beta'
-CONTRACT_SHA256 = 'b724aa51818bf74d9001eef1d60f3b7a9897049c2942817165c77e1c8af222cd'
+CONTRACT_SHA256 = '4755ddcae155e4bb16d3ec4bd685f0a0dcc61d5f6d53b2e924ac0435d642573a'
 OPERATIONS = {'createInbox': {'method': 'POST', 'path': '/v1/inboxes', 'success': 201}, 'listMessages': {'method': 'GET', 'path': '/v1/inboxes/{inboxId}/messages', 'success': 200}, 'getMessage': {'method': 'GET', 'path': '/v1/inboxes/{inboxId}/messages/{uid}', 'success': 200}, 'downloadAttachment': {'method': 'GET', 'path': '/v1/inboxes/{inboxId}/messages/{uid}/attachments/{cid}', 'success': 200}, 'deleteInbox': {'method': 'DELETE', 'path': '/v1/inboxes/{inboxId}', 'success': 204}}
 
 ERROR_CODES = frozenset(['invalid_request', 'authentication_required', 'access_denied', 'not_found', 'idempotency_in_progress', 'response_too_large', 'rate_limited', 'service_unavailable', 'internal_error'])

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://once-email.com/schemas/once-email-test-report-v1.json",
+  "title": "Once Email redacted email-flow test report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "flowType", "environment", "result", "stages", "cleanup"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "runId": { "type": "string", "format": "uuid" },
+    "flowType": { "const": "email-otp" },
+    "environment": { "enum": ["local", "test", "staging"] },
+    "result": { "enum": ["passed", "failed"] },
+    "errorCode": { "type": ["string", "null"], "enum": [null, "CONFIG_INVALID", "AUTHORIZATION_REJECTED", "TRIGGER_FAILED", "WAIT_TIMEOUT", "AMBIGUOUS_MESSAGE", "EXTRACTION_FAILED", "ASSERTION_FAILED", "API_UNAVAILABLE", "CLEANUP_FAILED"] },
+    "stages": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "required": ["name", "startedAt", "endedAt", "durationMs", "result"], "properties": { "name": { "type": "string", "maxLength": 40 }, "startedAt": { "type": "string", "format": "date-time" }, "endedAt": { "type": "string", "format": "date-time" }, "durationMs": { "type": "integer", "minimum": 0 }, "result": { "enum": ["passed", "failed", "skipped"] }, "retryCount": { "type": "integer", "minimum": 0 }, "candidateCount": { "type": "integer", "minimum": 0 }, "valueFound": { "type": "boolean" } } } },
+    "cleanup": { "type": "object", "additionalProperties": false, "required": ["attempted", "result"], "properties": { "attempted": { "type": "boolean" }, "result": { "enum": ["cleaned", "failed", "not-created"] } } },
+    "versions": { "type": "object", "additionalProperties": false, "properties": { "cli": { "type": "string" }, "configSchema": { "type": "string" }, "apiContract": { "type": "string" } } }
+  }
+}
