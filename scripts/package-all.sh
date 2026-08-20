@@ -13,7 +13,7 @@ mvn --batch-mode --no-transfer-progress -f "$root/sdks/java/pom.xml" package
 cp "$root"/sdks/java/target/*.jar "$dist/"
 (cd "$root/sdks/dotnet" && dotnet pack --configuration Release --output "$dist" --nologo)
 composer validate --strict "$root/sdks/php/composer.json"
-tar -C "$root/sdks" -czf "$dist/once-email-php-0.1.0-private.1.tar.gz" php
+tar -C "$root/sdks" -czf "$dist/once-email-php-0.1.0-beta.1.tar.gz" php
 tar -C "$root/sdks" -czf "$dist/once-email-go-0.1.0-private.1.tar.gz" go
 gem build --output "$dist/once-email-sdk-0.1.0.pre.1.gem" "$root/sdks/ruby/once_email.gemspec"
 
