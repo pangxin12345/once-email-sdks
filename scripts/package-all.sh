@@ -6,6 +6,8 @@ dist="$root/dist/registry-candidates"
 rm -rf "$dist"
 mkdir -p "$dist"
 
+"$root/scripts/check-branding.sh"
+
 (cd "$root/sdks/typescript" && npm ci --ignore-scripts && npm run build && npm pack --ignore-scripts --pack-destination "$dist")
 python3 -m pip install --disable-pip-version-check build >/dev/null
 python3 -m build --outdir "$dist" "$root/sdks/python"

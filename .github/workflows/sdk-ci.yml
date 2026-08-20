@@ -9,6 +9,13 @@ permissions:
   contents: read
 
 jobs:
+  branding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Once Email branding and ownership metadata
+        run: bash scripts/check-branding.sh
+
   typescript:
     strategy:
       fail-fast: false
