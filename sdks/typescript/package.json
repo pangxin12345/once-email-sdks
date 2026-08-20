@@ -1,8 +1,12 @@
 {
   "name": "@once-email/test",
   "version": "0.1.0-private.1",
-  "private": true,
-  "description": "Private candidate core for authorized Once Email staging flow tests",
+  "description": "Once Email SDK and CLI for authorized receive-only email flow tests",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/pangxin12345/once-email-sdks.git", "directory": "sdks/typescript" },
+  "homepage": "https://once-email.com/sdk",
+  "bugs": { "url": "https://github.com/pangxin12345/once-email-sdks/issues" },
+  "publishConfig": { "access": "public", "provenance": true },
   "type": "module",
   "engines": {
     "node": ">=20"

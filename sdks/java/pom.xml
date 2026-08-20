@@ -6,28 +6,27 @@
     <packaging>jar</packaging>
     <name>once-email-sdk</name>
     <version>0.1.0-private.1</version>
-    <url>https://github.com/openapitools/openapi-generator</url>
-    <description>OpenAPI Java</description>
+    <url>https://once-email.com/sdk</url>
+    <description>Once Email Java client for the receive-only Developer API</description>
     <scm>
-        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
-        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
-        <url>https://github.com/openapitools/openapi-generator</url>
+        <connection>scm:git:https://github.com/pangxin12345/once-email-sdks.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/pangxin12345/once-email-sdks.git</developerConnection>
+        <url>https://github.com/pangxin12345/once-email-sdks/tree/main/sdks/java</url>
     </scm>
 
     <licenses>
         <license>
-            <name>Unlicense</name>
-            <url>http://unlicense.org</url>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>OpenAPI-Generator Contributors</name>
-            <email>team@openapitools.org</email>
-            <organization>OpenAPITools.org</organization>
-            <organizationUrl>http://openapitools.org</organizationUrl>
+            <name>Once Email</name>
+            <organization>Once Email</organization>
+            <organizationUrl>https://once-email.com</organizationUrl>
         </developer>
     </developers>
 

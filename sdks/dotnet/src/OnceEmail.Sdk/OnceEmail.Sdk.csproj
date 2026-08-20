@@ -6,17 +6,18 @@
     <AssemblyName>OnceEmail.Sdk</AssemblyName>
     <PackageId>OnceEmail.Sdk</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
-    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
-    <Description>A library generated from a OpenAPI doc</Description>
-    <Copyright>No Copyright</Copyright>
+    <Authors>Once Email</Authors>
+    <Company>Once Email</Company>
+    <AssemblyTitle>Once Email SDK</AssemblyTitle>
+    <Description>Once Email .NET client for the receive-only Developer API</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://once-email.com/sdk</PackageProjectUrl>
     <RootNamespace>OnceEmail.Sdk</RootNamespace>
     <Version>0.1.0-private.1</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\OnceEmail.Sdk.xml</DocumentationFile>
-    <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/pangxin12345/once-email-sdks.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial public prerelease candidate.</PackageReleaseNotes>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>

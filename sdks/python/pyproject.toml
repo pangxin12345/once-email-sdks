@@ -1,7 +1,7 @@
 [project]
 name = "once-email"
 version = "0.1.0.dev1"
-description = "Private candidate Python client for the Once Email Developer API"
+description = "Once Email Python client for the receive-only Developer API"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
@@ -10,6 +10,8 @@ dependencies = []
 [project.urls]
 Documentation = "https://once-email.com/docs/sdk-cli"
 Security = "https://once-email.com/contact"
+Source = "https://github.com/pangxin12345/once-email-sdks/tree/main/sdks/python"
+Issues = "https://github.com/pangxin12345/once-email-sdks/issues"
 
 [tool.once-email]
 private-candidate = true

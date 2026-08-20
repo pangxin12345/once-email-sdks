@@ -21,12 +21,16 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["OpenAPI-Generator"]
   s.email       = [""]
-  s.homepage    = "https://openapi-generator.tech"
+  s.homepage    = "https://once-email.com/sdk"
   s.summary     = "Once Email Developer API Ruby Gem"
   s.description = "Receive-only temporary inbox API for authorized email-flow testing. Public access is not open."
-  s.license     = "Unlicense"
+  s.license     = "MIT"
   s.required_ruby_version = ">= 2.7"
-  s.metadata    = {}
+  s.metadata    = {
+    "source_code_uri" => "https://github.com/pangxin12345/once-email-sdks/tree/main/sdks/ruby",
+    "bug_tracker_uri" => "https://github.com/pangxin12345/once-email-sdks/issues",
+    "documentation_uri" => "https://once-email.com/docs/sdk-cli"
+  }
 
   s.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'
 
