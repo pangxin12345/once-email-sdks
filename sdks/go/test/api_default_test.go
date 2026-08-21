@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/pangxin12345/once-email-sdks"
+	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
 )
 
 func Test_onceemail_DefaultAPIService(t *testing.T) {
