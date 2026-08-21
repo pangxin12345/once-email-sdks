@@ -4,3 +4,6 @@
 **/target/
 **/__pycache__/
 *.py[cod]
+
+# Python build metadata
+*.egg-info/
