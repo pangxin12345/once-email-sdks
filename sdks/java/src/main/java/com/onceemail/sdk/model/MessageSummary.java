@@ -40,7 +40,7 @@ import com.onceemail.sdk.ApiClient;
   MessageSummary.JSON_PROPERTY_RECEIVED_AT,
   MessageSummary.JSON_PROPERTY_ATTACHMENTS_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class MessageSummary {
   public static final String JSON_PROPERTY_UID = "uid";
   @jakarta.annotation.Nonnull

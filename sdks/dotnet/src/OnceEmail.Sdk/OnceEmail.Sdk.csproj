@@ -1,23 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageProjectUrl>https://once-email.com</PackageProjectUrl>
+    <Authors>Once Email</Authors>
+    <Company>Once Email</Company>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>OnceEmail.Sdk</AssemblyName>
     <PackageId>OnceEmail.Sdk</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>Once Email</Authors>
-    <Company>Once Email</Company>
-    <AssemblyTitle>Once Email SDK</AssemblyTitle>
-    <Description>Once Email .NET client for the receive-only Developer API</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://once-email.com/sdk</PackageProjectUrl>
+    <Authors>OpenAPI</Authors>
+    <Company>OpenAPI</Company>
+    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
+    <Description>A library generated from a OpenAPI doc</Description>
+    <Copyright>No Copyright</Copyright>
     <RootNamespace>OnceEmail.Sdk</RootNamespace>
     <Version>0.1.0-private.1</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\OnceEmail.Sdk.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/pangxin12345/once-email-sdks.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Initial public prerelease candidate.</PackageReleaseNotes>
+    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>

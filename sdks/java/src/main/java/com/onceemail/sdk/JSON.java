@@ -16,7 +16,6 @@ package com.onceemail.sdk;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import org.openapitools.jackson.nullable.JsonNullableModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.onceemail.sdk.model.*;
 
@@ -26,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class JSON {
   private ObjectMapper mapper;
 
@@ -42,8 +41,6 @@ public class JSON {
         .defaultDateFormat(new RFC3339DateFormat())
         .addModule(new JavaTimeModule())
         .build();
-    JsonNullableModule jnm = new JsonNullableModule();
-    mapper.registerModule(jnm);
   }
 
   /**
@@ -82,7 +79,7 @@ public class JSON {
   /**
    * Helper class to register the discriminator mappings.
    */
-  @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+  @jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
   private static class ClassDiscriminatorMapping {
     // The model class name.
     Class<?> modelClass;

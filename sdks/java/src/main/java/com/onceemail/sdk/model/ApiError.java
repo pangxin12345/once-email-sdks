@@ -37,7 +37,7 @@ import com.onceemail.sdk.ApiClient;
   ApiError.JSON_PROPERTY_MESSAGE,
   ApiError.JSON_PROPERTY_RETRYABLE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class ApiError {
   /**
    * Gets or Sets code

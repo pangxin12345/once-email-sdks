@@ -1,20 +1,18 @@
 {
+    "version": "0.1.0-private.1",
     "description": "Receive-only temporary inbox API for authorized email-flow testing. Public access is not open.",
-    "keywords": [
-        "openapitools",
-        "openapi-generator",
+    "keywords": [        "Once Email",
         "openapi",
         "php",
         "sdk",
         "rest",
         "api"
     ],
-    "name": "once-email/sdk",
-    "homepage": "https://once-email.com/sdk",
+    "homepage": "https://once-email.com",
     "license": "MIT",
     "authors": [
         {
-            "name": "Once Email",
+            "name": "OpenAPI",
             "homepage": "https://once-email.com"
         }
     ],

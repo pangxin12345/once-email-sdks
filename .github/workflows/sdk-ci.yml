@@ -51,7 +51,11 @@ jobs:
           PYTHONPATH: sdks/python/src
 
   java:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -62,7 +66,11 @@ jobs:
       - run: mvn --batch-mode --no-transfer-progress -f sdks/java/pom.xml package
 
   go:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -89,7 +97,11 @@ jobs:
         working-directory: sdks/dotnet
 
   php-ruby-syntax:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -98,5 +110,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-      - run: find sdks/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l
-      - run: find sdks/ruby/lib -name '*.rb' -print0 | xargs -0 -n1 ruby -c
+      - name: Validate PHP source
+        shell: bash
+        run: find sdks/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Validate Ruby source
+        shell: bash
+        run: find sdks/ruby/lib -name '*.rb' -print0 | xargs -0 -n1 ruby -c

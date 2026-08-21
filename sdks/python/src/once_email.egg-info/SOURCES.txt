@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+src/once_email/__init__.py
+src/once_email/client.py
+src/once_email/errors.py
+src/once_email/generated_contract.py
+src/once_email.egg-info/PKG-INFO
+src/once_email.egg-info/SOURCES.txt
+src/once_email.egg-info/dependency_links.txt
+src/once_email.egg-info/top_level.txt
+tests/test_client.py
+tests/test_contract.py

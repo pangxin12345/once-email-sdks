@@ -3,7 +3,8 @@ name = "once-email"
 version = "0.1.0.dev1"
 description = "Once Email Python client for the receive-only Developer API"
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 dependencies = []
 

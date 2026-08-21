@@ -96,11 +96,11 @@ class Configuration
     protected $host = 'https://api.once-email.com';
 
     /**
-     * User agent of the HTTP request, set to "OpenAPI-Generator/{version}/PHP" by default
+     * User agent of the HTTP request, set to "Once-Email-SDK" by default
      *
      * @var string
      */
-    protected $userAgent = 'OpenAPI-Generator/0.1.0-private.1/PHP';
+    protected $userAgent = 'Once-Email-SDK';
 
     /**
      * Debug switch (default set to false)

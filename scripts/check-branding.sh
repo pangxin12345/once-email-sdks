@@ -4,7 +4,7 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 sdk_root="$root/sdks"
 skill_root="$root/skills"
-banned='OpenAPI Generator|openapi-generator\.tech|github\.com/(openapitools|OpenAPITools)/openapi-generator|GIT_USER_ID|GIT_REPO_ID|Unlicense'
+banned='OpenAPI[- ]Generator|openapi-generator\.tech|github\.com/(openapitools|OpenAPITools)/openapi-generator|org\.openapitools\.codegen|OpenAPIToolsType|GIT_USER_ID|GIT_REPO_ID|Unlicense'
 
 if grep -RInE \
   --exclude-dir=node_modules --exclude-dir=target --exclude-dir=bin --exclude-dir=obj \

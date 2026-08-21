@@ -146,8 +146,3 @@ It's recommended to create an instance of `ApiClient` per thread in a multithrea
 However, the instances of the api clients created from the `ApiClient` are thread-safe and can be re-used.
 
 ## Author
-
-
-
-
-Official website: https://once-email.com

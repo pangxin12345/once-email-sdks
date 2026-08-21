@@ -39,7 +39,7 @@ import com.onceemail.sdk.ApiClient;
   Attachment.JSON_PROPERTY_MIME_TYPE,
   Attachment.JSON_PROPERTY_CID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class Attachment {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull

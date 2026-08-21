@@ -13,7 +13,7 @@
 
 package com.onceemail.sdk;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class Pair {
     private String name = "";
     private String value = "";

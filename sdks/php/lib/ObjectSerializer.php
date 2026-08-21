@@ -58,7 +58,7 @@ class ObjectSerializer
      * Serialize data
      *
      * @param mixed  $data   the data to serialize
-     * @param string|null $type   the OpenAPIToolsType of the data
+     * @param string|null $type   the OnceEmailType of the data
      * @param string|null $format the format of the OpenAPITools type of the data
      *
      * @return scalar|object|array|null serialized form of $data

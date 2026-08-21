@@ -90,3 +90,31 @@ jobs:
       - run: mkdir python-dist && cp release-assets/*.whl python-dist/ && cp release-assets/once_email_sdk-*.tar.gz python-dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
         with: { packages-dir: python-dist }
+
+  nuget-publish:
+    if: startsWith(github.ref, 'refs/tags/sdk-v') && vars.ENABLE_NUGET_PUBLISH == 'true'
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: registry-candidates, path: release-assets }
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '8.0.x' }
+      - name: Publish to NuGet.org
+        run: dotnet nuget push 'release-assets/*.nupkg' --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+  rubygems-publish:
+    if: startsWith(github.ref, 'refs/tags/sdk-v') && vars.ENABLE_RUBYGEMS_PUBLISH == 'true'
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: registry-candidates, path: release-assets }
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: '3.3' }
+      - name: Publish to RubyGems.org
+        run: gem push release-assets/*.gem
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}

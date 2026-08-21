@@ -6,17 +6,17 @@
     <packaging>jar</packaging>
     <name>once-email-sdk</name>
     <version>0.1.0-private.1</version>
-    <url>https://once-email.com/sdk</url>
-    <description>Once Email Java client for the receive-only Developer API</description>
+    <url>https://github.com/openapitools/Once Email</url>
+    <description>OpenAPI Java</description>
     <scm>
-        <connection>scm:git:https://github.com/pangxin12345/once-email-sdks.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/pangxin12345/once-email-sdks.git</developerConnection>
-        <url>https://github.com/pangxin12345/once-email-sdks/tree/main/sdks/java</url>
+        <connection>scm:git:git@github.com:openapitools/Once Email.git</connection>
+        <developerConnection>scm:git:git@github.com:openapitools/Once Email.git</developerConnection>
+        <url>https://github.com/pangxin12345/once-email-sdks</url>
     </scm>
 
     <licenses>
         <license>
-            <name>MIT License</name>
+            <name>MIT</name>
             <url>https://opensource.org/license/mit</url>
             <distribution>repo</distribution>
         </license>
@@ -25,6 +25,7 @@
     <developers>
         <developer>
             <name>Once Email</name>
+            <email>team@openapitools.org</email>
             <organization>Once Email</organization>
             <organizationUrl>https://once-email.com</organizationUrl>
         </developer>

@@ -40,7 +40,7 @@ import com.onceemail.sdk.ApiClient;
   Inbox.JSON_PROPERTY_EXPIRES_AT,
   Inbox.JSON_PROPERTY_SERVER_TIME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+@jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class Inbox {
   public static final String JSON_PROPERTY_ID = "id";
   @jakarta.annotation.Nonnull

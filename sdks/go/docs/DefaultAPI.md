@@ -27,7 +27,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
+	openapiclient "github.com/pangxin12345/once-email-sdks"
 )
 
 func main() {
@@ -91,7 +91,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
+	openapiclient "github.com/pangxin12345/once-email-sdks"
 )
 
 func main() {
@@ -157,7 +157,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
+	openapiclient "github.com/pangxin12345/once-email-sdks"
 )
 
 func main() {
@@ -231,7 +231,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
+	openapiclient "github.com/pangxin12345/once-email-sdks"
 )
 
 func main() {
@@ -303,7 +303,7 @@ import (
 	"fmt"
 	"os"
     "time"
-	openapiclient "github.com/pangxin12345/once-email-sdks/sdks/go"
+	openapiclient "github.com/pangxin12345/once-email-sdks"
 )
 
 func main() {
