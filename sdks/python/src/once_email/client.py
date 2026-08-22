@@ -115,7 +115,7 @@ class OnceEmailClient:
         for name, value in (path or {}).items(): route = route.replace("{" + name + "}", quote(str(value), safe=""))
         if "{" in route: raise ValueError("Request path is incomplete")
         url = BASE_URL + route + (("?" + urlencode(query)) if query else "")
-        request_headers = {"Authorization": f"Bearer {self._api_key}", "Accept": "application/json", "User-Agent": "once-email-python/0.1.0.dev1", **(headers or {})}
+        request_headers = {"Authorization": f"Bearer {self._api_key}", "Accept": "application/json", "User-Agent": "once-email-python/0.1.0.dev2", **(headers or {})}
         request = Request(url, method=contract["method"], headers=request_headers)
         try:
             response = self._transport(request, self._timeout)

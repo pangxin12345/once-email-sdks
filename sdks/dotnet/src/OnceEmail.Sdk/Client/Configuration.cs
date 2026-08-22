@@ -33,7 +33,7 @@ namespace OnceEmail.Sdk.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "0.1.0-private.1";
+        public const string Version = "0.1.0-private.2";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -540,7 +540,7 @@ namespace OnceEmail.Sdk.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 0.5.0-private-beta\n";
-            report += "    SDK Package Version: 0.1.0-private.1\n";
+            report += "    SDK Package Version: 0.1.0-private.2\n";
 
             return report;
         }

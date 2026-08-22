@@ -11,5 +11,5 @@ Generator version: 7.12.0
 =end
 
 module OnceEmail
-  VERSION = '0.1.0.private.1'
+  VERSION = '0.1.0.private.2'
 end

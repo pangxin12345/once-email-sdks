@@ -1,0 +1,19 @@
+stages: [verify, package]
+default:
+  image: node:20-bookworm
+verify-demo:
+  stage: verify
+  script:
+    - node --check demos/api/authorized-workflow.mjs
+    - test -s demos/skill/PROMPTS.md
+    - test -s demos/skill/DEMO.md
+    - bash scripts/check-branding.sh
+package-demo:
+  stage: package
+  script:
+    - mkdir -p dist/gitlab
+    - tar -czf dist/gitlab/once-email-api-and-skill-demos-0.1.0-private.2.tar.gz demos
+    - sha256sum dist/gitlab/*.tar.gz > dist/gitlab/SHA256SUMS
+  artifacts:
+    expire_in: 14 days
+    paths: [dist/gitlab]

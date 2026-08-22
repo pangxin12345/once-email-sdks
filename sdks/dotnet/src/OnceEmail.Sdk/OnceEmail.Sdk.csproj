@@ -15,7 +15,7 @@
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>OnceEmail.Sdk</RootNamespace>
-    <Version>0.1.0-private.1</Version>
+    <Version>0.1.0-private.2</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\OnceEmail.Sdk.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/pangxin12345/once-email-sdks.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

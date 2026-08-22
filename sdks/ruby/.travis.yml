@@ -8,4 +8,4 @@ script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build once_email.gemspec
-  - gem install ./once_email-0.1.0.private.1.gem
+  - gem install ./once_email-0.1.0.private.2.gem

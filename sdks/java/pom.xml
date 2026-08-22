@@ -5,7 +5,7 @@
     <artifactId>once-email-sdk</artifactId>
     <packaging>jar</packaging>
     <name>once-email-sdk</name>
-    <version>0.1.0-private.1</version>
+    <version>0.1.0-private.2</version>
     <url>https://github.com/openapitools/Once Email</url>
     <description>OpenAPI Java</description>
     <scm>

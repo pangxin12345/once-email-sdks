@@ -1,4 +1,4 @@
-module github.com/pangxin12345/once-email-sdks/sdks/go/sdks/go
+module github.com/pangxin12345/once-email-sdks/sdks/go
 
 go 1.18
 

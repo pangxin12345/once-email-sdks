@@ -8,7 +8,7 @@ import zipfile
 from pathlib import Path
 
 NAME = "once_email"
-VERSION = "0.1.0.dev1"
+VERSION = "0.1.0.dev2"
 DIST_INFO = f"{NAME}-{VERSION}.dist-info"
 STAMP = (2026, 8, 15, 0, 0, 0)
 

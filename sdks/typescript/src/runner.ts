@@ -50,7 +50,7 @@ export async function executeRun(config: TestConfig, api: RunApi, adapter: FlowA
     schemaVersion: 1, runId, flowType: "email-otp", environment: config.authorization.environment,
     result: exitCode === 0 ? "passed" : "failed", errorCode, stages,
     cleanup: { attempted: inbox !== null, result: inbox === null ? "not-created" : exitCode === 60 ? "failed" : "cleaned" },
-    versions: { cli: "0.1.0-private.1", configSchema: "1", apiContract: "0.5.0-private-beta" },
+    versions: { cli: "0.1.0-private.2", configSchema: "1", apiContract: "0.5.0-private-beta" },
   } };
 }
 

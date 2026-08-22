@@ -15,7 +15,7 @@ package com.onceemail.sdk;
 
 @jakarta.annotation.Generated(value = "https://once-email.com", comments = "Generator version: 7.12.0")
 public class Configuration {
-    public static final String VERSION = "0.1.0-private.1";
+    public static final String VERSION = "0.1.0-private.2";
 
     private static volatile ApiClient defaultApiClient = new ApiClient();
 

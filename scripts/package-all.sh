@@ -27,10 +27,11 @@ else
   exit 1
 fi
 composer validate --strict "$root/sdks/php/composer.json"
-tar -C "$root/sdks" -czf "$dist/once-email-php-0.1.0-beta.1.tar.gz" php
-tar -C "$root/sdks" -czf "$dist/once-email-go-0.1.0-private.1.tar.gz" go
-gem build --output "$dist/once-email-sdk-0.1.0.pre.1.gem" "$root/sdks/ruby/once_email.gemspec"
-tar -C "$root/skills" -czf "$dist/test-email-flows-skill-0.1.0-private.1.tar.gz" test-email-flows
+tar -C "$root/sdks" -czf "$dist/once-email-php-0.1.0-beta.2.tar.gz" php
+tar -C "$root/sdks" -czf "$dist/once-email-go-0.1.0-private.2.tar.gz" go
+gem build --output "$dist/once-email-sdk-0.1.0.pre.2.gem" "$root/sdks/ruby/once_email.gemspec"
+tar -C "$root/skills" -czf "$dist/test-email-flows-skill-0.1.0-private.2.tar.gz" test-email-flows
+tar -C "$root" -czf "$dist/once-email-api-and-skill-demos-0.1.0-private.2.tar.gz" demos
 
 (cd "$dist" && shasum -a 256 ./* > SHA256SUMS)
 printf 'Registry candidate artifacts created in %s\n' "$dist"

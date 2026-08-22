@@ -1,6 +1,6 @@
 {
   "name": "@once-email/test",
-  "version": "0.1.0-private.1",
+  "version": "0.1.0-private.2",
   "description": "Once Email SDK and CLI for authorized receive-only email flow tests",
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/pangxin12345/once-email-sdks.git", "directory": "sdks/typescript" },

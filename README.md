@@ -25,3 +25,8 @@ Read [local usage](LOCAL-USAGE.md), [security](SECURITY.md), and the README in t
 Canonical documentation: [once-email.com/api](https://once-email.com/api)
 
 For a routine change, run `scripts/release-all.sh candidate`. Maintainers can run `scripts/release-all.sh publish sdk-vX.Y.Z` to create and push a validated release tag; GitHub waits for the same commit's native matrix before publishing immutable release assets.
+
+## Demos
+
+- [Cross-platform API workflow](demos/api/authorized-workflow.mjs)
+- [Skill prompts](demos/skill/PROMPTS.md) and [authorized demo](demos/skill/DEMO.md)

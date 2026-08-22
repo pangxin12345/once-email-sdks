@@ -9,3 +9,7 @@ Each downloaded bundle is self-contained source for one language and is tied to 
 5. Handle 429 and 503 using `Retry-After`; do not convert network or dependency failures into an empty inbox result.
 
 The SDK is receive-only. It does not send email, automate third-party registrations, open links, or expose message content to analytics or advertising.
+
+## Runnable demo
+
+Run `node demos/api/authorized-workflow.mjs` with Node.js 20+ on Windows, Linux, or macOS. Inject `ONCE_EMAIL_API_KEY` through the process secret facility. The demo prints only a redacted count and deletes the inbox in `finally`.

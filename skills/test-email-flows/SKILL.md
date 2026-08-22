@@ -35,3 +35,7 @@ python3 test-email-flows/scripts/validate_redacted_report.py <report.json>
 ```
 
 The scripts emit only `valid` or a generic failure message and never echo input values.
+
+## Prompt and demo assets
+
+Use [`../../demos/skill/PROMPTS.md`](../../demos/skill/PROMPTS.md) and [`../../demos/skill/DEMO.md`](../../demos/skill/DEMO.md). Examples are not authorization evidence.
