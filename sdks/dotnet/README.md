@@ -27,6 +27,8 @@ Install-Package System.ComponentModel.Annotations
 ```
 <a id="installation"></a>
 ## Installation
+This is a public-source prerelease candidate, not a NuGet.org release. Verify and extract the archive, run `dotnet build OnceEmail.Sdk.sln`, and reference the resulting local project or package. Do not use a public registry command until a registry release is explicitly published.
+
 Run the following command to generate the DLL
 - [Mac/Linux] `/bin/sh build.sh`
 - [Windows] `build.bat`
@@ -109,7 +111,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -121,7 +123,7 @@ namespace Example
             {
                 // Create one temporary test inbox
                 Inbox result = apiInstance.CreateInbox(idempotencyKey);
-                Debug.WriteLine(result);
+                Debug.WriteLine("Request completed; sensitive fields withheld");
             }
             catch (ApiException e)
             {

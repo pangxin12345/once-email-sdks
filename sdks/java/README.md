@@ -20,6 +20,8 @@ Building the API client library requires:
 
 ## Installation
 
+This is a public-source prerelease candidate, not a Maven Central release. Verify and extract the language archive, then install it only into your local Maven repository with `mvn clean install` before referencing version `0.1.0-private.2`.
+
 To install the API client library to your local Maven repository, simply execute:
 
 ```shell
@@ -88,7 +90,7 @@ public class DefaultApiExample {
         String idempotencyKey = "idempotencyKey_example"; // String | Stable key for safely retrying inbox creation; valid while the created inbox remains available
         try {
             Inbox result = apiInstance.createInbox(idempotencyKey);
-            System.out.println(result);
+            System.out.println("Inbox created; sensitive fields withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#createInbox");
             System.err.println("Status code: " + e.getCode());

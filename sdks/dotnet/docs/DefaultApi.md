@@ -34,7 +34,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -46,7 +46,7 @@ namespace Example
             {
                 // Create one temporary test inbox
                 Inbox result = apiInstance.CreateInbox(idempotencyKey);
-                Debug.WriteLine(result);
+                Debug.WriteLine("Request completed; sensitive fields withheld");
             }
             catch (ApiException  e)
             {
@@ -135,7 +135,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -233,7 +233,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -247,7 +247,7 @@ namespace Example
             {
                 // Download one attachment from an owned received message
                 string result = apiInstance.DownloadAttachment(inboxId, uid, cid);
-                Debug.WriteLine(result);
+                Debug.WriteLine("Request completed; sensitive fields withheld");
             }
             catch (ApiException  e)
             {
@@ -340,7 +340,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -353,7 +353,7 @@ namespace Example
             {
                 // Read one received message
                 Message result = apiInstance.GetMessage(inboxId, uid);
-                Debug.WriteLine(result);
+                Debug.WriteLine("Request completed; sensitive fields withheld");
             }
             catch (ApiException  e)
             {
@@ -445,7 +445,7 @@ namespace Example
             Configuration config = new Configuration();
             config.BasePath = "https://api.once-email.com";
             // Configure Bearer token for authorization: bearerApiKey
-            config.AccessToken = "YOUR_BEARER_TOKEN";
+            config.AccessToken = Environment.GetEnvironmentVariable("ONCE_EMAIL_API_KEY");
 
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
@@ -460,7 +460,7 @@ namespace Example
             {
                 // List received message summaries
                 List<MessageSummary> result = apiInstance.ListMessages(inboxId, since, cursor, pageSize);
-                Debug.WriteLine(result);
+                Debug.WriteLine("Request completed; sensitive fields withheld");
             }
             catch (ApiException  e)
             {

@@ -38,10 +38,10 @@ func main() {
 	resp, r, err := apiClient.DefaultAPI.CreateInbox(context.Background()).IdempotencyKey(idempotencyKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.CreateInbox``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintln(os.Stderr, "HTTP response details withheld")
 	}
 	// response from `CreateInbox`: Inbox
-	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.CreateInbox`: %v\n", resp)
+	fmt.Fprintln(os.Stdout, "Request completed; sensitive fields withheld")
 }
 ```
 
@@ -102,7 +102,7 @@ func main() {
 	r, err := apiClient.DefaultAPI.DeleteInbox(context.Background(), inboxId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DeleteInbox``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintln(os.Stderr, "HTTP response details withheld")
 	}
 }
 ```
@@ -170,10 +170,10 @@ func main() {
 	resp, r, err := apiClient.DefaultAPI.DownloadAttachment(context.Background(), inboxId, uid, cid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.DownloadAttachment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintln(os.Stderr, "HTTP response details withheld")
 	}
 	// response from `DownloadAttachment`: string
-	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.DownloadAttachment`: %v\n", resp)
+	fmt.Fprintln(os.Stdout, "Request completed; sensitive fields withheld")
 }
 ```
 
@@ -243,10 +243,10 @@ func main() {
 	resp, r, err := apiClient.DefaultAPI.GetMessage(context.Background(), inboxId, uid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.GetMessage``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintln(os.Stderr, "HTTP response details withheld")
 	}
 	// response from `GetMessage`: Message
-	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.GetMessage`: %v\n", resp)
+	fmt.Fprintln(os.Stdout, "Request completed; sensitive fields withheld")
 }
 ```
 
@@ -317,10 +317,10 @@ func main() {
 	resp, r, err := apiClient.DefaultAPI.ListMessages(context.Background(), inboxId).Since(since).Cursor(cursor).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.ListMessages``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintln(os.Stderr, "HTTP response details withheld")
 	}
 	// response from `ListMessages`: []MessageSummary
-	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.ListMessages`: %v\n", resp)
+	fmt.Fprintln(os.Stdout, "Request completed; sensitive fields withheld")
 }
 ```
 

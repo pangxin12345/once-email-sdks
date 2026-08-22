@@ -47,7 +47,7 @@ public class Example {
         String idempotencyKey = "idempotencyKey_example"; // String | Stable key for safely retrying inbox creation; valid while the created inbox remains available
         try {
             Inbox result = apiInstance.createInbox(idempotencyKey);
-            System.out.println(result);
+            System.out.println("Inbox created; sensitive fields withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#createInbox");
             System.err.println("Status code: " + e.getCode());
@@ -122,8 +122,8 @@ public class Example {
         try {
             ApiResponse<Inbox> response = apiInstance.createInboxWithHttpInfo(idempotencyKey);
             System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
+            System.out.println("Response headers withheld");
+            System.out.println("Request completed; response body withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#createInbox");
             System.err.println("Status code: " + e.getCode());
@@ -272,7 +272,7 @@ public class Example {
         try {
             ApiResponse<Void> response = apiInstance.deleteInboxWithHttpInfo(inboxId);
             System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
+            System.out.println("Response headers withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#deleteInbox");
             System.err.println("Status code: " + e.getCode());
@@ -349,7 +349,7 @@ public class Example {
         String cid = "cid_example"; // String | 
         try {
             String result = apiInstance.downloadAttachment(inboxId, uid, cid);
-            System.out.println(result);
+            System.out.println("Inbox created; sensitive fields withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#downloadAttachment");
             System.err.println("Status code: " + e.getCode());
@@ -430,8 +430,8 @@ public class Example {
         try {
             ApiResponse<String> response = apiInstance.downloadAttachmentWithHttpInfo(inboxId, uid, cid);
             System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
+            System.out.println("Response headers withheld");
+            System.out.println("Request completed; response body withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#downloadAttachment");
             System.err.println("Status code: " + e.getCode());
@@ -510,7 +510,7 @@ public class Example {
         Long uid = 56L; // Long | 
         try {
             Message result = apiInstance.getMessage(inboxId, uid);
-            System.out.println(result);
+            System.out.println("Inbox created; sensitive fields withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#getMessage");
             System.err.println("Status code: " + e.getCode());
@@ -589,8 +589,8 @@ public class Example {
         try {
             ApiResponse<Message> response = apiInstance.getMessageWithHttpInfo(inboxId, uid);
             System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
+            System.out.println("Response headers withheld");
+            System.out.println("Request completed; response body withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#getMessage");
             System.err.println("Status code: " + e.getCode());
@@ -670,7 +670,7 @@ public class Example {
         Integer pageSize = 50; // Integer | 
         try {
             List<MessageSummary> result = apiInstance.listMessages(inboxId, since, cursor, pageSize);
-            System.out.println(result);
+            System.out.println("Inbox created; sensitive fields withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#listMessages");
             System.err.println("Status code: " + e.getCode());
@@ -752,8 +752,8 @@ public class Example {
         try {
             ApiResponse<List<MessageSummary>> response = apiInstance.listMessagesWithHttpInfo(inboxId, since, cursor, pageSize);
             System.out.println("Status code: " + response.getStatusCode());
-            System.out.println("Response headers: " + response.getHeaders());
-            System.out.println("Response body: " + response.getData());
+            System.out.println("Response headers withheld");
+            System.out.println("Request completed; response body withheld");
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#listMessages");
             System.err.println("Status code: " + e.getCode());

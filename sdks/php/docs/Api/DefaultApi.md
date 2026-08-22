@@ -27,7 +27,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -40,7 +40,7 @@ $idempotency_key = 'idempotency_key_example'; // string | Stable key for safely 
 
 try {
     $result = $apiInstance->createInbox($idempotency_key);
-    print_r($result);
+    print json_encode(['result' => 'completed']);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->createInbox: ', $e->getMessage(), PHP_EOL;
 }
@@ -85,7 +85,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -142,7 +142,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -157,7 +157,7 @@ $cid = 'cid_example'; // string
 
 try {
     $result = $apiInstance->downloadAttachment($inbox_id, $uid, $cid);
-    print_r($result);
+    print json_encode(['result' => 'completed']);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->downloadAttachment: ', $e->getMessage(), PHP_EOL;
 }
@@ -204,7 +204,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -218,7 +218,7 @@ $uid = 56; // int
 
 try {
     $result = $apiInstance->getMessage($inbox_id, $uid);
-    print_r($result);
+    print json_encode(['result' => 'completed']);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->getMessage: ', $e->getMessage(), PHP_EOL;
 }
@@ -264,7 +264,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -280,7 +280,7 @@ $page_size = 50; // int
 
 try {
     $result = $apiInstance->listMessages($inbox_id, $since, $cursor, $page_size);
-    print_r($result);
+    print json_encode(['result' => 'completed']);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->listMessages: ', $e->getMessage(), PHP_EOL;
 }

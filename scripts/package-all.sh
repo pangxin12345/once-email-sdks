@@ -8,6 +8,7 @@ mkdir -p "$dist"
 mkdir -p "$root/.package-cache/npm"
 
 "$root/scripts/check-branding.sh"
+"$root/scripts/check-documentation.sh"
 
 (cd "$root/sdks/typescript" && npm ci --ignore-scripts --cache "$root/.package-cache/npm" && npm run build && npm pack --ignore-scripts --cache "$root/.package-cache/npm" --pack-destination "$dist")
 python3 -m venv "$root/.package-cache/python"

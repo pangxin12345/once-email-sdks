@@ -12,18 +12,21 @@ Should also work with PHP 8.0.
 
 ### Composer
 
+This is a public-source prerelease candidate, not a Packagist release. After verifying and extracting the archive, run `composer install` in this directory and use a Composer `path` repository from your authorized test project. Do not use a wildcard VCS dependency.
+
 To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
 
 ```json
 {
   "repositories": [
     {
-      "type": "vcs",
-      "url": "https://github.com/pangxin12345/once-email-sdks.git"
+      "type": "path",
+      "url": "../once-email-php-sdk-0.1.0-private.2",
+      "options": { "symlink": false }
     }
   ],
   "require": {
-    "pangxin12345/once-email-sdks": "*@dev"
+    "once-email/sdk": "0.1.0-private.2"
   }
 }
 ```
@@ -50,7 +53,7 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 
 // Configure Bearer (oe_live_...) authorization: bearerApiKey
-$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+$config = OnceEmail\Sdk\Configuration::getDefaultConfiguration()->setAccessToken(getenv('ONCE_EMAIL_API_KEY'));
 
 
 $apiInstance = new OnceEmail\Sdk\Api\DefaultApi(
@@ -63,7 +66,7 @@ $idempotency_key = 'idempotency_key_example'; // string | Stable key for safely 
 
 try {
     $result = $apiInstance->createInbox($idempotency_key);
-    print_r($result);
+    print json_encode(['result' => 'completed']);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->createInbox: ', $e->getMessage(), PHP_EOL;
 }

@@ -1,5 +1,7 @@
 # Once Email Test
 
+SDK/CLI `0.1.0-private.2` · API contract `0.5.0-private-beta` · Node.js 20+ · MIT
+
 Official private release candidate for deterministic email OTP tests against applications you own or are explicitly authorized to test. Public npm publication is not open yet.
 
 ## Supported systems
@@ -17,7 +19,7 @@ once-email-test cleanup --run-file .once-email/run/<run-id>.json
 
 Start with `doctor`, validate `plan`, run exactly one authorized flow, and require cleanup result `cleaned`. The API key stays in the configured environment source. Addresses and OTPs travel only through stdin or in-process callbacks and never belong in arguments, reports, Git, screenshots, traces, or CI artifacts.
 
-The canonical usage, configuration, failure, Playwright, privacy, and migration documentation is prepared for `https://once-email.com/docs/sdk-cli` and `https://once-email.com/docs/skills-playwright`. Source and release links will be added only after the official GitHub repository is created and anonymously verified.
+Canonical usage, configuration, failure, Playwright, privacy, and migration documentation: `https://once-email.com/sdk` and `https://once-email.com/skill`. Public source is available from the official repository; language-registry installation is not yet available.
 
 ## Safety boundary
 

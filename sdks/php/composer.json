@@ -1,4 +1,5 @@
 {
+    "name": "once-email/sdk",
     "version": "0.1.0-private.2",
     "description": "Receive-only temporary inbox API for authorized email-flow testing. Public access is not open.",
     "keywords": [        "Once Email",

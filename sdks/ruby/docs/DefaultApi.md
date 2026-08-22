@@ -25,7 +25,7 @@ require 'once_email'
 # setup authorization
 OnceEmail.configure do |config|
   # Configure Bearer authorization (oe_live_...): bearerApiKey
-  config.access_token = 'YOUR_BEARER_TOKEN'
+  config.access_token = ENV.fetch('ONCE_EMAIL_API_KEY')
 end
 
 api_instance = OnceEmail::DefaultApi.new
@@ -36,8 +36,7 @@ opts = {
 begin
   # Create one temporary test inbox
   result = api_instance.create_inbox(opts)
-  p result
-rescue OnceEmail::ApiError => e
+  puts({ created: true }.to_json)rescue OnceEmail::ApiError => e
   puts "Error when calling DefaultApi->create_inbox: #{e}"
 end
 ```
@@ -94,7 +93,7 @@ require 'once_email'
 # setup authorization
 OnceEmail.configure do |config|
   # Configure Bearer authorization (oe_live_...): bearerApiKey
-  config.access_token = 'YOUR_BEARER_TOKEN'
+  config.access_token = ENV.fetch('ONCE_EMAIL_API_KEY')
 end
 
 api_instance = OnceEmail::DefaultApi.new
@@ -160,7 +159,7 @@ require 'once_email'
 # setup authorization
 OnceEmail.configure do |config|
   # Configure Bearer authorization (oe_live_...): bearerApiKey
-  config.access_token = 'YOUR_BEARER_TOKEN'
+  config.access_token = ENV.fetch('ONCE_EMAIL_API_KEY')
 end
 
 api_instance = OnceEmail::DefaultApi.new
@@ -171,8 +170,7 @@ cid = 'cid_example' # String |
 begin
   # Download one attachment from an owned received message
   result = api_instance.download_attachment(inbox_id, uid, cid)
-  p result
-rescue OnceEmail::ApiError => e
+  puts({ created: true }.to_json)rescue OnceEmail::ApiError => e
   puts "Error when calling DefaultApi->download_attachment: #{e}"
 end
 ```
@@ -231,7 +229,7 @@ require 'once_email'
 # setup authorization
 OnceEmail.configure do |config|
   # Configure Bearer authorization (oe_live_...): bearerApiKey
-  config.access_token = 'YOUR_BEARER_TOKEN'
+  config.access_token = ENV.fetch('ONCE_EMAIL_API_KEY')
 end
 
 api_instance = OnceEmail::DefaultApi.new
@@ -241,8 +239,7 @@ uid = 789 # Integer |
 begin
   # Read one received message
   result = api_instance.get_message(inbox_id, uid)
-  p result
-rescue OnceEmail::ApiError => e
+  puts({ created: true }.to_json)rescue OnceEmail::ApiError => e
   puts "Error when calling DefaultApi->get_message: #{e}"
 end
 ```
@@ -300,7 +297,7 @@ require 'once_email'
 # setup authorization
 OnceEmail.configure do |config|
   # Configure Bearer authorization (oe_live_...): bearerApiKey
-  config.access_token = 'YOUR_BEARER_TOKEN'
+  config.access_token = ENV.fetch('ONCE_EMAIL_API_KEY')
 end
 
 api_instance = OnceEmail::DefaultApi.new
@@ -314,8 +311,7 @@ opts = {
 begin
   # List received message summaries
   result = api_instance.list_messages(inbox_id, opts)
-  p result
-rescue OnceEmail::ApiError => e
+  puts({ created: true }.to_json)rescue OnceEmail::ApiError => e
   puts "Error when calling DefaultApi->list_messages: #{e}"
 end
 ```
